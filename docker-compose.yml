@@ -1,0 +1,114 @@
+services:
+  # Serviço principal da OCR API
+  ocr-api:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    container_name: ocr-api
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      # Configurações básicas
+      - ENV=development
+      - DEBUG=true
+      - LOG_LEVEL=INFO
+      - LOG_FORMAT=json
+      
+      # Banco de dados
+      - DATABASE_URL=postgresql://postgres:postgres123@postgres:5432/ocr_api
+      - DATABASE_ECHO=false
+      
+      # OCR
+      - PADDLE_OCR_USE_GPU=false
+      - PADDLE_OCR_LANG=pt
+      - OCR_MODEL_DIR=/app/models/paddle_ocr
+      
+      # Arquivos
+      - MAX_IMAGE_SIZE_MB=10
+      - TEMP_UPLOAD_DIR=/tmp/ocr_uploads
+      - CLEANUP_TEMP_FILES=true
+      
+      # Features
+      - ENABLE_OCR=true
+      - ENABLE_BARCODE=true
+      - ENABLE_QRCODE=true
+      - ENABLE_ANALYTICS=true
+      
+      # Performance
+      - MAX_CONCURRENT_JOBS=5
+      - JOB_TIMEOUT_SECONDS=300
+    volumes:
+      - ./logs:/app/logs
+      - ./temp:/tmp/ocr_uploads
+      - ./models:/app/models
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - ocr-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+  # Banco de dados PostgreSQL
+  postgres:
+    image: postgres:15-alpine
+    container_name: ocr-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ocr_api
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres123
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8 --lc-collate=C --lc-ctype=C"
+      PGTZ: UTC
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./docker/init.sql:/docker-entrypoint-initdb.d/01-init.sql
+      - ./docker/indexes.sql:/docker-entrypoint-initdb.d/02-indexes.sql
+    ports:
+      - "5432:5432"
+    networks:
+      - ocr-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d ocr_api"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  # PgAdmin para administração do banco (desenvolvimento)
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: ocr-pgadmin
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@ocrapi.local
+      PGADMIN_DEFAULT_PASSWORD: admin123
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres
+    networks:
+      - ocr-network
+    profiles:
+      - admin
+
+volumes:
+  postgres_data:
+    driver: local
+  pgadmin_data:
+    driver: local
+
+networks:
+  ocr-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16

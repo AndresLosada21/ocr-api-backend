@@ -1,0 +1,1 @@
+"""Utilitarios e helpers da aplicaçao."""

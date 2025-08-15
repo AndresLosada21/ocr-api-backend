@@ -1,0 +1,66 @@
+# ===============================
+# CORE FRAMEWORK
+# ===============================
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+pydantic==2.5.0
+pydantic-settings==2.1.0
+python-multipart==0.0.6
+
+# ===============================
+# DATABASE
+# ===============================
+sqlalchemy==2.0.23
+alembic==1.13.0
+psycopg2-binary==2.9.9
+asyncpg==0.29.0
+
+# ===============================
+# OCR PROCESSING
+# ===============================
+paddlepaddle==2.5.2
+paddleocr==2.7.0.3
+Pillow==10.1.0
+opencv-python==4.6.0.66
+
+# ===============================
+# BARCODE/QRCODE PROCESSING
+# ===============================
+pyzbar==0.1.9
+qrcode[pil]==7.4.2
+numpy==1.24.3
+
+# ===============================
+# HTTP CLIENT
+# ===============================
+httpx==0.25.2
+requests==2.31.0
+
+# ===============================
+# UTILITIES
+# ===============================
+python-dotenv==1.0.0
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+python-magic==0.4.27
+
+# ===============================
+# MONITORING & LOGGING
+# ===============================
+psutil==5.9.6
+
+# ===============================
+# DEVELOPMENT & TESTING
+# ===============================
+pytest==7.4.3
+pytest-asyncio==0.21.1
+pytest-cov==4.1.0
+httpx==0.25.2
+faker==20.1.0
+
+# ===============================
+# OPTIONAL DEPENDENCIES
+# ===============================
+# prometheus-client==0.19.0  # Uncomment for Prometheus metrics
+# redis==5.0.1                # Uncomment for Redis caching
+# celery==5.3.4              # Uncomment for background jobs

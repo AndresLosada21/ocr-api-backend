@@ -1,0 +1,161 @@
+# ======================
+# PYTHON
+# ======================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# ======================
+# VIRTUAL ENVIRONMENTS
+# ======================
+.venv/
+venv/
+ENV/
+env/
+env.bak/
+venv.bak/
+.conda/
+
+# ======================
+# ENVIRONMENT & SECRETS
+# ======================
+.env
+.env.*
+!.env.example
+*.env.local
+*.env.production
+secrets/
+config/secrets/
+
+# ======================
+# LOGS & TEMPORARY FILES
+# ======================
+*.log
+logs/
+temp/
+*.tmp
+*.swp
+*.bak
+*.pid
+*.seed
+*.lock
+
+# ======================
+# OCR SPECIFIC FILES
+# ======================
+OCR/
+models/
+*.jpg
+*.jpeg
+*.png
+*.pdf
+*.bmp
+*.tiff
+*.gif
+imagem_corrigida.*
+arquivos_vazios.txt
+teste.py
+
+# ======================
+# DATABASE
+# ======================
+*.sqlite3
+*.db
+postgres_data/
+pgadmin_data/
+database/
+
+# ======================
+# DOCKER
+# ======================
+docker/volumes/
+docker/logs/
+*.dockerignore
+
+# ======================
+# IDE & EDITORS
+# ======================
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+.spyderproject
+.spyproject
+.ropeproject
+.DS_Store
+Thumbs.db
+*.swp
+*~
+
+# ======================
+# TESTING & COVERAGE
+# ======================
+.coverage
+htmlcov/
+.tox/
+.nox/
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+cover/
+test-results/
+
+# ======================
+# ALEMBIC
+# ======================
+alembic/versions/__pycache__/
+
+# ======================
+# OS SPECIFIC
+# ======================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# ======================
+# JUPYTER NOTEBOOKS
+# ======================
+.ipynb_checkpoints
+
+# ======================
+# MYPY
+# ======================
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# ======================
+# NODE MODULES (if any)
+# ======================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

@@ -1,0 +1,1 @@
+"""Configuraçoes da aplicativo."""
